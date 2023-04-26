@@ -8,6 +8,15 @@
 </head>
 <body>
     <div>トップページ</div>
-    <a th:href="@{/login}">ログイン</a>
+    <div th:text="${session.userId}"></div>
+    <a th:href="@{/loginOnSession}">ログイン</a>
+    <a th:href="@{/logout}">ログアウト</a>
+    <br>
+    <a th:href="@{/items/findAll}">全体検索</a>
+    <a th:href="@{/items/findAllByOrderByPriceDesc}">並び替え検索</a>
+    <a th:href="@{/items/getOne/1}">PRIMARY KEY SEARCH[1]</a>
+    <a th:href="@{/items/getOne/3}">PRIMARY KEY SEARCH[3]</a>
+    <a th:href="@{/items/findByPrice/100}">価格検索</a>
+
 </body>
 </html>

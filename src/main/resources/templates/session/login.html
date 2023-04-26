@@ -8,10 +8,16 @@
 </head>
 <body>
     <div>ログイン</div>
-    <form method="get" th:action="@{/doLogin}">
-        ユーザーID:<input type="number" name="userid"/>
+    <form method="get" th:action="@{/Login}">
+        ユーザーID:<input type="number" name="userId"/>
         パスワード:<input type="password" name="password" />
-    <input type="submit" value="ログイン" />
+    <input type="submit" value="ログイン by GET method" />
+    </form>
+
+    <form method="post" th:action="@{/Login}">
+        ユーザーID:<input type="number" name="userId"/>
+        パスワード:<input type="password" name="password" />
+    <input type="submit" value="ログイン by POST method" />
     </form>
 </body>
 </html>
