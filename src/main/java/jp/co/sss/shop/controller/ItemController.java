@@ -5,10 +5,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import jp.co.sss.shop.bean.ItemBean;
 import jp.co.sss.shop.entity.Item;
+import jp.co.sss.shop.form.ItemForm;
 import jp.co.sss.shop.repository.ItemRepository;
 
 @Controller
@@ -47,5 +50,32 @@ public class ItemController {
     public String showItemListByNameAndPrice(@PathVariable String name, @PathVariable Integer price, Model model){
         model.addAttribute("items", repository.findByNameAndPrice(name, price));
         return "items/item_list";
+    }
+
+    @RequestMapping("/items/findByNameLike/{name}")
+    public String showItemListByNameLike(@PathVariable String name, Model model){
+        model.addAttribute("items", repository.findByNameContaining(name));
+        return "items/item_list";
+    }
+
+    @RequestMapping("/items/findAllAndSetDropdown")
+    public String itemListSetDropdowString(Model model){
+        model.addAttribute("items", repository.findAll());
+        return "items/item_list_dropdown";
+    }
+
+@RequestMapping("/items/create/input")
+    public String createInput() {
+    return "items/create_input";
+    }
+@RequestMapping(path = "/items/create/complete", method = RequestMethod.POST)
+    public String createComplete(ItemForm form,Model model) {
+        Item item = new Item();
+        BeanUtils.copyProperties(form, item, "id");
+        item=repository.save(item);
+        ItemBean itemBean = new ItemBean();
+        BeanUtils.copyProperties(item,itemBean);
+        model.addAttribute("item", itemBean);
+        return "items/item";
     }
 }
