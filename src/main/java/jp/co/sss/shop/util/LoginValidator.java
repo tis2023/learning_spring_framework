@@ -1,4 +1,4 @@
-package jp.co.sss.util;
+package jp.co.sss.shop.util;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

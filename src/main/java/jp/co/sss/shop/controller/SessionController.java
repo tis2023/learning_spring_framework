@@ -11,9 +11,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
 import jp.co.sss.shop.form.LoginForm;
+import jp.co.sss.shop.form.LoginFormWithAnnotation;
 import jp.co.sss.shop.form.LoginFormWithValidation;
+
 
 
 @Controller
@@ -98,6 +99,24 @@ public class SessionController {
             return "redirect:/";
         } else {
         return "session/loginWithValidation";
+        }
+    }
+
+    @GetMapping("/loginWithAnnotation")
+    public String loginWithAnnotation(@ModelAttribute LoginFormWithAnnotation form){
+        return "session/loginWithAnnotation";
+    }
+    
+    @PostMapping("/loginWithAnnotation")
+    public String doLoginWithAnnotation(@Valid @ModelAttribute LoginFormWithAnnotation form, BindingResult result, HttpSession session){
+        if(result.hasErrors()){
+            return "session/loginWithAnnotation";
+        }
+        if(form.getUserId() == 123){
+            session.setAttribute("userId", form.getUserId());
+            return "redirect:/";
+        } else {
+            return "session/loginWithAnnotation";
         }
     }
 }

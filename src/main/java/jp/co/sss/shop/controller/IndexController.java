@@ -35,4 +35,9 @@ public class IndexController {
     public String index_redirect(){
         return "redirect:/";
     }
+
+    @RequestMapping("/layout_view")
+    public String layout_view() {
+        return "layout_view";
+    }
 }
